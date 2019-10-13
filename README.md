@@ -1,3 +1,10 @@
+# Sorting Algorithm visualization
+
+Selection Sort, Bubble Sort, Binary Insertion Sort, Insertion Sort, Morge Sort, Quick Sort,
+Heap Sort, Radix Sort
+
+https://www.geeksforgeeks.org/sorting-algorithms/
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

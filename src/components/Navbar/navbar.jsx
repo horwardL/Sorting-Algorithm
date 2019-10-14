@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
+import "./navbar.min.css";
+
 class NavBar extends Component {
   handleSelect = eventKey => alert(`selected ${eventKey}`);
 
@@ -11,6 +13,7 @@ class NavBar extends Component {
         expand="lg"
         bg="dark"
         variant="dark"
+        className="navbar fixed"
         onSelect={this.handleSelect}
       >
         <Navbar.Brand href="#home">

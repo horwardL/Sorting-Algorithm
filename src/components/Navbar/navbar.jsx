@@ -4,7 +4,28 @@ import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import "./navbar.min.css";
 
 class NavBar extends Component {
-  handleSelect = eventKey => alert(`selected ${eventKey}`);
+  state={
+    algorithmSelected: "selectionSort",
+    size: "50",
+    speed: "0",
+  }
+
+  handleSelect = eventKey => {
+    console.log(eventKey);
+    this.setState({algorithmSelected: eventKey});
+  };
+
+  onSizeChange = () => {
+    this.setState({size: document.getElementById("array_size").value});
+    console.log(this.state.size);
+  };
+
+  onSpeedChange = () => {
+    this.setState({speed: document.getElementById("speed").value});
+    console.log(this.state.speed,"%");
+  };
+
+  onStartSelected = () => {console.log("Start", this.state.algorithmSelected, "with size =", this.state.size, ", speed = +", this.state.speed, "%")}
 
   render() {
     return (
@@ -14,7 +35,6 @@ class NavBar extends Component {
         bg="dark"
         variant="dark"
         className="navbar fixed"
-        onSelect={this.handleSelect}
       >
         <Navbar.Brand href="#home">
           {"Sorting Algorithm  "}
@@ -30,28 +50,60 @@ class NavBar extends Component {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="">Array Size</Nav.Link>
-            <input type="range" className="custom-range" id="array_size" />
+            <input 
+              type="range" 
+              className="custom-range" 
+              id="array_size"
+              min="4"
+              max="100"
+              defaultValue={this.state.size}
+              onInput={() => this.onSizeChange()}
+              />
             <Nav.Link href="">Sorting Speed</Nav.Link>
-            <input type="range" className="custom-range" id="sorting_speed" />
+            <input 
+              type="range" 
+              className="custom-range" 
+              id="speed"
+              min="0"
+              max="100"
+              defaultValue={this.state.speed}
+              onInput={() => this.onSpeedChange()}
+              />
             <NavDropdown title="Algorithms" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#Selection_Sort">
+              <NavDropdown.Item 
+                onClick={() => this.handleSelect("selectionSort")}>
                 Selection Sort
               </NavDropdown.Item>
-              <NavDropdown.Item href="#Bubble_Sort">
+              <NavDropdown.Item 
+                onClick={() => this.handleSelect("bubbleSort")}>
                 Bubble Sort
               </NavDropdown.Item>
-              <NavDropdown.Item href="#Binary_Insertion_Sort">
+              <NavDropdown.Item 
+                onClick={() => this.handleSelect("binaryInsertionSort")}>
                 Binary Insertion Sort
               </NavDropdown.Item>
-              <NavDropdown.Item href="#Insertion_Sort">
+              <NavDropdown.Item 
+                onClick={() => this.handleSelect("insertionSort")}>
                 Insertion Sort
               </NavDropdown.Item>
-              <NavDropdown.Item href="#Merge_Sort">Merge Sort</NavDropdown.Item>
-              <NavDropdown.Item href="#Quick_Sort">Quick Sort</NavDropdown.Item>
-              <NavDropdown.Item href="#Heap_Sort">Heap Sort</NavDropdown.Item>
-              <NavDropdown.Item href="#Radix_Sort">Radix Sort</NavDropdown.Item>
+              <NavDropdown.Item 
+                onClick={() => this.handleSelect("mergeSort")}>
+                Merge Sort
+              </NavDropdown.Item>
+              <NavDropdown.Item 
+                onClick={() => this.handleSelect("quickSort")}>
+                Quick Sort
+              </NavDropdown.Item>
+              <NavDropdown.Item 
+                onClick={() => this.handleSelect("heapSort")}>
+                  Heap Sort
+              </NavDropdown.Item>
+              <NavDropdown.Item 
+                onClick={() => this.handleSelect("radixSort")}>
+                Radix Sort
+              </NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link href="#start">Start</Nav.Link>
+            <Nav.Link href="#start" onClick={() => this.onStartSelected()}>Start</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

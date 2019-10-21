@@ -1,33 +1,25 @@
 import React, { Component } from "react";
-import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import {
+  Navbar,
+  Nav,
+  NavDropdown,
+  OverlayTrigger,
+  Tooltip
+} from "react-bootstrap";
 
 import "./navbar.min.css";
 
 class NavBar extends Component {
-  state={
-    algorithmSelected: "selectionSort",
-    size: "50",
-    speed: "0",
-  }
-
-  handleSelect = eventKey => {
-    console.log(eventKey);
-    this.setState({algorithmSelected: eventKey});
-  };
-
-  onSizeChange = () => {
-    this.setState({size: document.getElementById("array_size").value});
-    console.log(this.state.size);
-  };
-
-  onSpeedChange = () => {
-    this.setState({speed: document.getElementById("speed").value});
-    console.log(this.state.speed,"%");
-  };
-
-  onStartSelected = () => {console.log("Start", this.state.algorithmSelected, "with size =", this.state.size, ", speed = +", this.state.speed, "%")}
-
   render() {
+    const {
+      size,
+      speed,
+      onAlgorithmSelect,
+      onSizeChange,
+      onSpeedChange,
+      onStartSelected
+    } = this.props;
+
     return (
       <Navbar
         collapseOnSelect
@@ -50,60 +42,68 @@ class NavBar extends Component {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="">Array Size</Nav.Link>
-            <input 
-              type="range" 
-              className="custom-range" 
-              id="array_size"
-              min="4"
-              max="100"
-              defaultValue={this.state.size}
-              onInput={() => this.onSizeChange()}
+            <OverlayTrigger
+              overlay={<Tooltip id="tooltip-size">{size}</Tooltip>}
+            >
+              <input
+                type="range"
+                className="custom-range"
+                id="array_size"
+                min="4"
+                max="520"
+                defaultValue={size}
+                onInput={() => onSizeChange()}
               />
+            </OverlayTrigger>
             <Nav.Link href="">Sorting Speed</Nav.Link>
-            <input 
-              type="range" 
-              className="custom-range" 
-              id="speed"
-              min="0"
-              max="100"
-              defaultValue={this.state.speed}
-              onInput={() => this.onSpeedChange()}
+            <OverlayTrigger
+              overlay={<Tooltip id="tooltip-size">+{speed}%</Tooltip>}
+            >
+              <input
+                type="range"
+                className="custom-range"
+                id="speed"
+                min="0"
+                max="100"
+                defaultValue={speed}
+                onInput={() => onSpeedChange()}
               />
+            </OverlayTrigger>
             <NavDropdown title="Algorithms" id="collasible-nav-dropdown">
-              <NavDropdown.Item 
-                onClick={() => this.handleSelect("selectionSort")}>
+              <NavDropdown.Item
+                onClick={() => onAlgorithmSelect("selectionSort")}
+              >
                 Selection Sort
               </NavDropdown.Item>
-              <NavDropdown.Item 
-                onClick={() => this.handleSelect("bubbleSort")}>
+              <NavDropdown.Item onClick={() => onAlgorithmSelect("bubbleSort")}>
                 Bubble Sort
               </NavDropdown.Item>
-              <NavDropdown.Item 
-                onClick={() => this.handleSelect("binaryInsertionSort")}>
+              <NavDropdown.Item
+                onClick={() => onAlgorithmSelect("binaryInsertionSort")}
+              >
                 Binary Insertion Sort
               </NavDropdown.Item>
-              <NavDropdown.Item 
-                onClick={() => this.handleSelect("insertionSort")}>
+              <NavDropdown.Item
+                onClick={() => onAlgorithmSelect("insertionSort")}
+              >
                 Insertion Sort
               </NavDropdown.Item>
-              <NavDropdown.Item 
-                onClick={() => this.handleSelect("mergeSort")}>
+              <NavDropdown.Item onClick={() => onAlgorithmSelect("mergeSort")}>
                 Merge Sort
               </NavDropdown.Item>
-              <NavDropdown.Item 
-                onClick={() => this.handleSelect("quickSort")}>
+              <NavDropdown.Item onClick={() => onAlgorithmSelect("quickSort")}>
                 Quick Sort
               </NavDropdown.Item>
-              <NavDropdown.Item 
-                onClick={() => this.handleSelect("heapSort")}>
-                  Heap Sort
+              <NavDropdown.Item onClick={() => onAlgorithmSelect("heapSort")}>
+                Heap Sort
               </NavDropdown.Item>
-              <NavDropdown.Item 
-                onClick={() => this.handleSelect("radixSort")}>
+              <NavDropdown.Item onClick={() => onAlgorithmSelect("radixSort")}>
                 Radix Sort
               </NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link href="#start" onClick={() => this.onStartSelected()}>Start</Nav.Link>
+            <Nav.Link href="#start" onClick={() => onStartSelected()}>
+              Start
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

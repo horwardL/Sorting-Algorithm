@@ -1,0 +1,46 @@
+.arr-container {
+  position: relative;
+  float: left;
+  height: 100vh;
+  min-height: 900px;
+  min-width: 100vw;
+  padding-left: 0.5%;
+  padding-right: 0.5%;
+  background: black;
+}
+
+.array {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+}
+
+.array-bar {
+  display: inline-block;
+  margin: 0 1px;
+}
+
+@media only screen and (min-width: 768px) {
+  .arr-container {
+    position: relative;
+    float: left;
+    height: 100vh;
+    min-height: 900px;
+    min-width: 100vw;
+    padding-left: 0.5%;
+    padding-right: 0.5%;
+    background: black;
+  }
+
+  .array {
+    margin-left: 222px;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+  }
+
+  .array-bar {
+    display: inline-block;
+    margin: 0 1px;
+  }
+}

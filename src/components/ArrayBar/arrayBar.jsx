@@ -13,7 +13,6 @@ export default class ArrayBar extends Component {
       screenWidth -= 244;
       barWidth = (window.screen.width - 444) / (size * 2.3);
     }
-    console.log(barWidth);
     let widthStyle = {
       width: `${screenWidth}px`
     };

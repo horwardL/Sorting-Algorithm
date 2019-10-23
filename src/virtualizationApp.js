@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import NavBar from "./components/Navbar/navbar.jsx";
 import ArrayBar from "./components/ArrayBar/arrayBar.jsx";
 
+const maxHeight = window.screen.height * 0.88;
+
 export default class VirtualizationApp extends Component {
   state = {
     algorithmSelected: "selectionSort",
@@ -48,7 +50,7 @@ export default class VirtualizationApp extends Component {
   generateArray(size) {
     const array = [];
     for (let i = 0; i < size; ++i) {
-      array.push(getRandomInt(5, 888));
+      array.push(getRandomInt(5, maxHeight));
     }
 
     return array;

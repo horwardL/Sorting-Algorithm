@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/Sorting-Algorithm/static/css/main.e91f34d3.chunk.css",
-    "main.js": "/Sorting-Algorithm/static/js/main.84cf6956.chunk.js",
-    "main.js.map": "/Sorting-Algorithm/static/js/main.84cf6956.chunk.js.map",
+    "main.css": "/Sorting-Algorithm/static/css/main.ffe70fa8.chunk.css",
+    "main.js": "/Sorting-Algorithm/static/js/main.698fd79e.chunk.js",
+    "main.js.map": "/Sorting-Algorithm/static/js/main.698fd79e.chunk.js.map",
     "runtime-main.js": "/Sorting-Algorithm/static/js/runtime-main.8eef01b8.js",
     "runtime-main.js.map": "/Sorting-Algorithm/static/js/runtime-main.8eef01b8.js.map",
-    "static/js/2.a47d9362.chunk.js": "/Sorting-Algorithm/static/js/2.a47d9362.chunk.js",
-    "static/js/2.a47d9362.chunk.js.map": "/Sorting-Algorithm/static/js/2.a47d9362.chunk.js.map",
+    "static/js/2.406fa1f7.chunk.js": "/Sorting-Algorithm/static/js/2.406fa1f7.chunk.js",
+    "static/js/2.406fa1f7.chunk.js.map": "/Sorting-Algorithm/static/js/2.406fa1f7.chunk.js.map",
     "index.html": "/Sorting-Algorithm/index.html",
-    "precache-manifest.e87f1e398d4823eed9e6a741040a6dca.js": "/Sorting-Algorithm/precache-manifest.e87f1e398d4823eed9e6a741040a6dca.js",
+    "precache-manifest.54af95017ec2db019a7072b5aa4c3934.js": "/Sorting-Algorithm/precache-manifest.54af95017ec2db019a7072b5aa4c3934.js",
     "service-worker.js": "/Sorting-Algorithm/service-worker.js",
-    "static/css/main.e91f34d3.chunk.css.map": "/Sorting-Algorithm/static/css/main.e91f34d3.chunk.css.map"
+    "static/css/main.ffe70fa8.chunk.css.map": "/Sorting-Algorithm/static/css/main.ffe70fa8.chunk.css.map"
   },
   "entrypoints": [
     "static/js/runtime-main.8eef01b8.js",
-    "static/js/2.a47d9362.chunk.js",
-    "static/css/main.e91f34d3.chunk.css",
-    "static/js/main.84cf6956.chunk.js"
+    "static/js/2.406fa1f7.chunk.js",
+    "static/css/main.ffe70fa8.chunk.css",
+    "static/js/main.698fd79e.chunk.js"
   ]
 }

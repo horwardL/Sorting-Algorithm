@@ -51,7 +51,7 @@ export default class VirtualizationApp extends Component {
       array.push(getRandomInt(5, 888));
     }
 
-    return array.sort((a, b) => a - b);
+    return array;
   }
 
   render() {

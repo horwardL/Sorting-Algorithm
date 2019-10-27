@@ -6,19 +6,32 @@ import {
   OverlayTrigger,
   Tooltip
 } from "react-bootstrap";
+import { connect } from "react-redux";
 
 import "./navbar.min.css";
 
 class NavBar extends Component {
+  componentDidMount() {
+    this.props.arrayChanged(this.props.size);
+  }
+
+  sizeChange = () => {
+    this.props.arrayChanged(document.getElementById("array_size").value);
+  };
+
+  speedChange = () => {
+    this.props.speedChanged(document.getElementById("speed").value);
+    console.log(`+${this.props.speed}%`);
+  };
+
+  startSelected = () => {
+    console.log(
+      `Start ${this.props.algorithm} with size = ${this.props.size}, speed = +${this.props.speed}%`
+    );
+  };
+
   render() {
-    const {
-      size,
-      speed,
-      onAlgorithmSelect,
-      onSizeChange,
-      onSpeedChange,
-      onStartSelected
-    } = this.props;
+    const { size, speed, algorithmChanged } = this.props;
 
     return (
       <Navbar
@@ -28,7 +41,7 @@ class NavBar extends Component {
         variant="dark"
         className="navbar fixed"
       >
-        <Navbar.Brand href="#home">
+        <Navbar.Brand href="">
           {"Sorting Algorithm  "}
           <img
             alt=""
@@ -52,7 +65,7 @@ class NavBar extends Component {
                 min="5"
                 max={(window.screen.width - 222) / 3.75}
                 defaultValue={size}
-                onInput={() => onSizeChange()}
+                onInput={() => this.sizeChange()}
               />
             </OverlayTrigger>
             <Nav.Link href="">Sorting Speed</Nav.Link>
@@ -66,42 +79,42 @@ class NavBar extends Component {
                 min="0"
                 max="100"
                 defaultValue={speed}
-                onInput={() => onSpeedChange()}
+                onInput={() => this.speedChange()}
               />
             </OverlayTrigger>
             <NavDropdown title="Algorithms" id="collasible-nav-dropdown">
               <NavDropdown.Item
-                onClick={() => onAlgorithmSelect("selectionSort")}
+                onClick={() => algorithmChanged("selectionSort")}
               >
                 Selection Sort
               </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => onAlgorithmSelect("bubbleSort")}>
+              <NavDropdown.Item onClick={() => algorithmChanged("bubbleSort")}>
                 Bubble Sort
               </NavDropdown.Item>
               <NavDropdown.Item
-                onClick={() => onAlgorithmSelect("binaryInsertionSort")}
+                onClick={() => algorithmChanged("binaryInsertionSort")}
               >
                 Binary Insertion Sort
               </NavDropdown.Item>
               <NavDropdown.Item
-                onClick={() => onAlgorithmSelect("insertionSort")}
+                onClick={() => algorithmChanged("insertionSort")}
               >
                 Insertion Sort
               </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => onAlgorithmSelect("mergeSort")}>
+              <NavDropdown.Item onClick={() => algorithmChanged("mergeSort")}>
                 Merge Sort
               </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => onAlgorithmSelect("quickSort")}>
+              <NavDropdown.Item onClick={() => algorithmChanged("quickSort")}>
                 Quick Sort
               </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => onAlgorithmSelect("heapSort")}>
+              <NavDropdown.Item onClick={() => algorithmChanged("heapSort")}>
                 Heap Sort
               </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => onAlgorithmSelect("radixSort")}>
+              <NavDropdown.Item onClick={() => algorithmChanged("radixSort")}>
                 Radix Sort
               </NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link href="#start" onClick={() => onStartSelected()}>
+            <Nav.Link href="#start" onClick={() => this.startSelected()}>
               Start
             </Nav.Link>
           </Nav>
@@ -111,4 +124,27 @@ class NavBar extends Component {
   }
 }
 
-export default NavBar;
+const mapStateToProps = state => ({
+  size: state.array.size,
+  speed: state.array.speed,
+  algorithm: state.algorithm
+});
+
+const mapDispathToProps = dispatch => {
+  return {
+    arrayChanged: size => {
+      dispatch({ type: "ARRAY_CHANGE", size: size });
+    },
+    algorithmChanged: algorithm => {
+      dispatch({ type: "ALGORITHM_SELECT", algorithm: algorithm });
+    },
+    speedChanged: speed => {
+      dispatch({ type: "SPEED_CHENGE", speed: speed });
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispathToProps
+)(NavBar);

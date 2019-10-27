@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
-import "./arrayBar.css";
+import "./arrayContainer.css";
 
 const PRIMARY_COLOR = "white";
 
-export default class ArrayBar extends Component {
+class ArrayContainer extends Component {
   render() {
     const { array, size } = this.props;
     let screenWidth = window.screen.width;
@@ -36,3 +37,10 @@ export default class ArrayBar extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  size: state.array.size,
+  array: state.array.array
+});
+
+export default connect(mapStateToProps)(ArrayContainer);

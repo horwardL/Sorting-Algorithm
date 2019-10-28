@@ -1,6 +1,6 @@
 const initialState = {
-  size: "50",
-  speed: "0",
+  size: Math.floor(((window.screen.width - 222) / 3.33) * 0.5),
+  speed: 0,
   array: []
 };
 

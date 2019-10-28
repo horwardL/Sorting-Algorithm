@@ -9,10 +9,10 @@ class ArrayContainer extends Component {
   render() {
     const { array, size } = this.props;
     let screenWidth = window.screen.width;
-    let barWidth = screenWidth / (size * 1.5);
+    let barWidth = Math.floor(screenWidth / (size * 1.5));
     if (screenWidth >= 768) {
       screenWidth -= 244;
-      barWidth = (window.screen.width - 444) / (size * 2.3);
+      barWidth = Math.floor((window.screen.width - 444) / (size * 2.3));
     }
     let widthStyle = {
       width: `${screenWidth}px`

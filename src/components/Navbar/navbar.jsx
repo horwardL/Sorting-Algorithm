@@ -63,7 +63,7 @@ class NavBar extends Component {
                 className="custom-range"
                 id="array_size"
                 min="5"
-                max={(window.screen.width - 222) / 3.75}
+                max={Math.floor((window.screen.width - 222) / 3.33)}
                 defaultValue={size}
                 onInput={() => this.sizeChange()}
               />

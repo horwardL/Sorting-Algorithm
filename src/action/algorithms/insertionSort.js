@@ -9,15 +9,17 @@ export default function insertionSort() {
       j = 0;
 
     for (let i = 1; i < size; ++i) {
-      j = i - 1;
-      temp = array[i];
+      j = i;
 
-      while (j >= 0 && array[j] > temp) {
+      while (j > 0 && array[j] < array[j - 1]) {
         document.getElementById(`array-${shape}-${j}`).style.backgroundColor =
           "red";
         await sleep(getState().speed);
         document.getElementById(`array-${shape}-${j}`).style.backgroundColor =
           "white";
+        temp = array[j];
+        array[j] = array[j - 1];
+        array[j - 1] = temp;
         --j;
         dispatch({
           type: SWAP_ARRAY,
@@ -27,7 +29,6 @@ export default function insertionSort() {
           break;
         }
       }
-      array[j + 1] = temp;
       dispatch({
         type: SWAP_ARRAY,
         array: [...array]

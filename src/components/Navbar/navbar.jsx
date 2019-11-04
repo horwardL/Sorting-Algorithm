@@ -8,7 +8,18 @@ import {
 } from "react-bootstrap";
 import { connect } from "react-redux";
 
+import setArray from "../../action/arrayAction";
+import selectionSort from "../../action/algorithms/selectionSort";
+import insertionSort from "../../action/algorithms/insertionSort";
+import bubbleSort from "../../action/algorithms/bubbleSort";
+import binaryInsertionSort from "../../action/algorithms/binaryInsertionSort";
+import mergeSort from "../../action/algorithms/mergeSort";
+import quickSort from "../../action/algorithms/quickSort";
+import heapSort from "../../action/algorithms/heapSort";
+import radixSort from "../../action/algorithms/radixSort";
+
 import "./navbar.min.css";
+import { TOGGLE_STATE } from "../../action/types";
 
 class NavBar extends Component {
   componentDidMount() {
@@ -21,13 +32,38 @@ class NavBar extends Component {
 
   speedChange = () => {
     this.props.speedChanged(document.getElementById("speed").value);
-    console.log(`+${this.props.speed}%`);
   };
 
   startSelected = () => {
-    console.log(
-      `Start ${this.props.algorithm} with size = ${this.props.size}, speed = +${this.props.speed}%`
-    );
+    this.props.toggleState();
+    switch (this.props.algorithm) {
+      case "SELECTION_SORT":
+        this.props.selection_sort();
+        return;
+      case "BUBBLE_SORT":
+        this.props.bubble_sort();
+        return;
+      case "INSERTION_SORT":
+        this.props.insertion_sort();
+        return;
+      case "BINARY_INSERTION_SORT":
+        this.props.binary_insertion_sort();
+        return;
+      case "MERGE_SORT":
+        this.props.merge_sort();
+        return;
+      case "QUICK_SORT":
+        this.props.quick_sort();
+        return;
+      case "HEAP_SORT":
+        this.props.heap_sort();
+        return;
+      case "RADIX_SORT":
+        this.props.radix_sort();
+        return;
+      default:
+        return;
+    }
   };
 
   render() {
@@ -63,14 +99,15 @@ class NavBar extends Component {
                 className="custom-range"
                 id="array_size"
                 min="5"
-                max={Math.floor((window.screen.width - 222) / 3.33)}
+                max={Math.floor((window.screen.width - 222) / 3.11)}
                 defaultValue={size}
                 onInput={() => this.sizeChange()}
+                disabled={this.props.curState}
               />
             </OverlayTrigger>
             <Nav.Link href="">Sorting Speed</Nav.Link>
             <OverlayTrigger
-              overlay={<Tooltip id="tooltip-size">+{speed}%</Tooltip>}
+              overlay={<Tooltip id="tooltip-size">+{speed}ms</Tooltip>}
             >
               <input
                 type="range"
@@ -84,38 +121,49 @@ class NavBar extends Component {
             </OverlayTrigger>
             <NavDropdown title="Algorithms" id="collasible-nav-dropdown">
               <NavDropdown.Item
-                onClick={() => algorithmChanged("selectionSort")}
+                onClick={() => algorithmChanged("SELECTION_SORT")}
               >
                 Selection Sort
               </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => algorithmChanged("bubbleSort")}>
+              <NavDropdown.Item onClick={() => algorithmChanged("BUBBLE_SORT")}>
                 Bubble Sort
               </NavDropdown.Item>
               <NavDropdown.Item
-                onClick={() => algorithmChanged("binaryInsertionSort")}
-              >
-                Binary Insertion Sort
-              </NavDropdown.Item>
-              <NavDropdown.Item
-                onClick={() => algorithmChanged("insertionSort")}
+                onClick={() => algorithmChanged("INSERTION_SORT")}
               >
                 Insertion Sort
               </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => algorithmChanged("mergeSort")}>
+              <NavDropdown.Item
+                onClick={() => algorithmChanged("BINARY_INSERTION_SORT")}
+              >
+                Binary Insertion Sort
+              </NavDropdown.Item>
+              <NavDropdown.Item onClick={() => algorithmChanged("MERGE_SORT")}>
                 Merge Sort
               </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => algorithmChanged("quickSort")}>
+              <NavDropdown.Item onClick={() => algorithmChanged("QUICK_SORT")}>
                 Quick Sort
               </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => algorithmChanged("heapSort")}>
+              <NavDropdown.Item onClick={() => algorithmChanged("HEAP_SORT")}>
                 Heap Sort
               </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => algorithmChanged("radixSort")}>
+              <NavDropdown.Item onClick={() => algorithmChanged("RADIX_SORT")}>
                 Radix Sort
               </NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link href="#start" onClick={() => this.startSelected()}>
+            <Nav.Link
+              href=""
+              onClick={() => this.startSelected()}
+              disabled={this.props.curState}
+            >
               Start
+            </Nav.Link>
+            <Nav.Link
+              href=""
+              onClick={() => this.props.toggleState()}
+              disabled={!this.props.curState}
+            >
+              Stop
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
@@ -125,21 +173,50 @@ class NavBar extends Component {
 }
 
 const mapStateToProps = state => ({
+  array: state.array.array,
   size: state.array.size,
-  speed: state.array.speed,
-  algorithm: state.algorithm
+  speed: state.speed,
+  algorithm: state.algorithm,
+  curState: state.curState
 });
 
 const mapDispathToProps = dispatch => {
   return {
     arrayChanged: size => {
-      dispatch({ type: "ARRAY_CHANGE", size: size });
+      dispatch(setArray(size));
     },
     algorithmChanged: algorithm => {
       dispatch({ type: "ALGORITHM_SELECT", algorithm: algorithm });
     },
     speedChanged: speed => {
       dispatch({ type: "SPEED_CHENGE", speed: speed });
+    },
+    toggleState: () => {
+      dispatch({ type: TOGGLE_STATE });
+    },
+    selection_sort: () => {
+      dispatch(selectionSort());
+    },
+    insertion_sort: () => {
+      dispatch(insertionSort());
+    },
+    bubble_sort: () => {
+      dispatch(bubbleSort());
+    },
+    binary_insertion_sort: () => {
+      dispatch(binaryInsertionSort());
+    },
+    merge_sort: () => {
+      dispatch(mergeSort());
+    },
+    quick_sort: () => {
+      dispatch(quickSort());
+    },
+    heap_sort: () => {
+      dispatch(heapSort());
+    },
+    radix_sort: () => {
+      dispatch(radixSort());
     }
   };
 };

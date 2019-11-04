@@ -2,10 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import VirtualizationApp from "./virtualizationApp";
 import { Provider } from "react-redux";
-import store from "./store";
+import configureStore from "./store";
 
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider store={configureStore()}>
     <VirtualizationApp />
   </Provider>,
   document.getElementById("root")

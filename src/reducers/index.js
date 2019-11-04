@@ -1,8 +1,15 @@
 import { combineReducers } from "redux";
-import { arrayReducer } from "./array/index";
-import { algoReducer } from "./algorithm/index";
 
-export const rootReducer = combineReducers({
+import { arrayReducer } from "./array";
+import { algoReducer } from "./algorithm";
+import { speedReducer } from "./speed";
+import { toggleState } from "./currenState";
+
+const rootReducer = combineReducers({
   array: arrayReducer,
-  algorithm: algoReducer
+  speed: speedReducer,
+  algorithm: algoReducer,
+  curState: toggleState
 });
+
+export default rootReducer;

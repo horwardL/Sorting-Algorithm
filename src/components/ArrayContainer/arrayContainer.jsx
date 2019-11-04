@@ -24,6 +24,7 @@ class ArrayContainer extends Component {
           {array.map((value, index) => (
             <div
               className="array-bar"
+              id={`array-bar-${index}`}
               key={index}
               style={{
                 width: `${barWidth}px`,

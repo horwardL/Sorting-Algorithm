@@ -1,0 +1,6 @@
+export const ARRAY_CHANGE = "ARRAY_CHANGE";
+export const SPEED_CHENGE = "SPEED_CHENGE";
+export const ALGORITHM_SELECT = "ALGORITHM_SELECT";
+export const SWAP_ARRAY = "SWAP_ARRAY";
+export const START_SORTING = "START_SORTING";
+export const TOGGLE_STATE = "TOGGLE_STATE";

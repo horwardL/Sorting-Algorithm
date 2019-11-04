@@ -19,7 +19,7 @@ import heapSort from "../../action/algorithms/heapSort";
 import radixSort from "../../action/algorithms/radixSort";
 
 import "./navbar.min.css";
-import { TOGGLE_STATE } from "../../action/types";
+import { TOGGLE_STATE, SHAPE_CHANGE } from "../../action/types";
 
 class NavBar extends Component {
   componentDidMount() {
@@ -151,6 +151,24 @@ class NavBar extends Component {
                 Radix Sort
               </NavDropdown.Item>
             </NavDropdown>
+            <NavDropdown
+              title="Shapes"
+              id="collasible-nav-dropdown"
+              disabled={this.props.curState}
+            >
+              <NavDropdown.Item
+                onClick={() => this.props.shapeChanged("bar")}
+                disabled={this.props.curState}
+              >
+                Bar
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => this.props.shapeChanged("dot")}
+                disabled={this.props.curState}
+              >
+                Dot
+              </NavDropdown.Item>
+            </NavDropdown>
             <Nav.Link
               href=""
               onClick={() => this.startSelected()}
@@ -190,6 +208,9 @@ const mapDispathToProps = dispatch => {
     },
     speedChanged: speed => {
       dispatch({ type: "SPEED_CHENGE", speed: speed });
+    },
+    shapeChanged: shape => {
+      dispatch({ type: SHAPE_CHANGE, shape: shape });
     },
     toggleState: () => {
       dispatch({ type: TOGGLE_STATE });

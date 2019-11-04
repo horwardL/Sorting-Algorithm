@@ -45,14 +45,27 @@ async function merge(array, l, m, r) {
   for (let i = 0; i < n2; ++i) {
     L[i] = array[l + i];
     R[i] = array[m + 1 + i];
-    document.getElementById(`array-bar-${l + i}`).style.backgroundColor = "red";
-    document.getElementById(`array-bar-${m + 1 + i}`).style.backgroundColor =
-      "red";
-    await sleep(getState().speed);
-    document.getElementById(`array-bar-${l + i}`).style.backgroundColor =
-      "white";
-    document.getElementById(`array-bar-${m + 1 + i}`).style.backgroundColor =
-      "white";
+    if (getState().shape === "bar") {
+      document.getElementById(`array-bar-${l + i}`).style.backgroundColor =
+        "red";
+      document.getElementById(`array-bar-${m + 1 + i}`).style.backgroundColor =
+        "red";
+      await sleep(getState().speed);
+      document.getElementById(`array-bar-${l + i}`).style.backgroundColor =
+        "white";
+      document.getElementById(`array-bar-${m + 1 + i}`).style.backgroundColor =
+        "white";
+    } else {
+      document.getElementById(`array-dot-${l + i}`).style.backgroundColor =
+        "red";
+      document.getElementById(`array-dot-${m + 1 + i}`).style.backgroundColor =
+        "red";
+      await sleep(getState().speed);
+      document.getElementById(`array-dot-${l + i}`).style.backgroundColor =
+        "white";
+      document.getElementById(`array-dot-${m + 1 + i}`).style.backgroundColor =
+        "white";
+    }
     if (!getState().curState) {
       break;
     }

@@ -6,7 +6,7 @@ const setArray = size => {
   return dispatch => {
     const array = [];
     for (let i = 0; i < size; ++i) {
-      array.push(getRandomInt(5, maxHeight));
+      array.push(getRandomInt(50, maxHeight));
     }
 
     dispatch({

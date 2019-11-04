@@ -13,14 +13,27 @@ export default function bubbleSort() {
           array[j] = array[j + 1];
           array[j + 1] = temp;
         }
-        document.getElementById(`array-bar-${j}`).style.backgroundColor = "red";
-        document.getElementById(`array-bar-${j + 1}`).style.backgroundColor =
-          "red";
-        await sleep(getState().speed);
-        document.getElementById(`array-bar-${j}`).style.backgroundColor =
-          "white";
-        document.getElementById(`array-bar-${j + 1}`).style.backgroundColor =
-          "white";
+        if (getState().shape === "bar") {
+          document.getElementById(`array-bar-${j}`).style.backgroundColor =
+            "red";
+          document.getElementById(`array-bar-${j + 1}`).style.backgroundColor =
+            "red";
+          await sleep(getState().speed);
+          document.getElementById(`array-bar-${j}`).style.backgroundColor =
+            "white";
+          document.getElementById(`array-bar-${j + 1}`).style.backgroundColor =
+            "white";
+        } else {
+          document.getElementById(`array-dot-${j}`).style.backgroundColor =
+            "red";
+          document.getElementById(`array-dot-${j + 1}`).style.backgroundColor =
+            "red";
+          await sleep(getState().speed);
+          document.getElementById(`array-dot-${j}`).style.backgroundColor =
+            "white";
+          document.getElementById(`array-dot-${j + 1}`).style.backgroundColor =
+            "white";
+        }
         dispatch({
           type: SWAP_ARRAY,
           array: [...array]

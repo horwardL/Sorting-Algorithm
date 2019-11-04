@@ -8,26 +8,53 @@ function selectionSort() {
       temp = 0;
     for (let i = 0; i < size; ++i) {
       min = i;
-      document.getElementById(`array-bar-${min}`).style.backgroundColor =
-        "green";
+      if (getState().shape === "bar") {
+        document.getElementById(`array-bar-${min}`).style.backgroundColor =
+          "green";
+      } else {
+        document.getElementById(`array-dot-${min}`).style.backgroundColor =
+          "green";
+      }
       for (let j = i + 1; j < size; ++j) {
-        document.getElementById(`array-bar-${j}`).style.backgroundColor = "red";
-        await sleep(getState().speed);
-        document.getElementById(`array-bar-${j}`).style.backgroundColor =
-          "white";
-        if (array[j] < array[min]) {
-          document.getElementById(`array-bar-${min}`).style.backgroundColor =
+        if (getState().shape === "bar") {
+          document.getElementById(`array-bar-${j}`).style.backgroundColor =
+            "red";
+          await sleep(getState().speed);
+          document.getElementById(`array-bar-${j}`).style.backgroundColor =
             "white";
-          min = j;
-          document.getElementById(`array-bar-${min}`).style.backgroundColor =
-            "green";
+        } else {
+          document.getElementById(`array-dot-${j}`).style.backgroundColor =
+            "red";
+          await sleep(getState().speed);
+          document.getElementById(`array-dot-${j}`).style.backgroundColor =
+            "white";
+        }
+        if (array[j] < array[min]) {
+          if (getState().shape === "bar") {
+            document.getElementById(`array-bar-${min}`).style.backgroundColor =
+              "white";
+            min = j;
+            document.getElementById(`array-bar-${min}`).style.backgroundColor =
+              "green";
+          } else {
+            document.getElementById(`array-dot-${min}`).style.backgroundColor =
+              "white";
+            min = j;
+            document.getElementById(`array-dot-${min}`).style.backgroundColor =
+              "green";
+          }
         }
         if (!getState().curState) {
           break;
         }
       }
-      document.getElementById(`array-bar-${min}`).style.backgroundColor =
-        "white";
+      if (getState().shape === "bar") {
+        document.getElementById(`array-bar-${min}`).style.backgroundColor =
+          "white";
+      } else {
+        document.getElementById(`array-dot-${min}`).style.backgroundColor =
+          "white";
+      }
       temp = array[i];
       array[i] = array[min];
       array[min] = temp;

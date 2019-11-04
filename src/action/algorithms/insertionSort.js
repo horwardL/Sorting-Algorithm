@@ -12,11 +12,20 @@ export default function insertionSort() {
       temp = array[i];
 
       while (j >= 0 && array[j] > temp) {
-        document.getElementById(`array-bar-${j}`).style.backgroundColor = "red";
-        await sleep(getState().speed);
-        document.getElementById(`array-bar-${j}`).style.backgroundColor =
-          "white";
-        array[j + 1] = array[j];
+        if (getState().shape === "bar") {
+          document.getElementById(`array-bar-${j}`).style.backgroundColor =
+            "red";
+          await sleep(getState().speed);
+          document.getElementById(`array-bar-${j}`).style.backgroundColor =
+            "white";
+        } else {
+          document.getElementById(`array-bar-${j}`).style.backgroundColor =
+            "red";
+          await sleep(getState().speed);
+          document.getElementById(`array-bar-${j}`).style.backgroundColor =
+            "white";
+          array[j + 1] = array[j];
+        }
         --j;
         dispatch({
           type: SWAP_ARRAY,

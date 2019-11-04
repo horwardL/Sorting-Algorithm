@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import "./arrayContainer.css";
 
-const PRIMARY_COLOR = "white";
+const PRIMARY_COLOR = ["white", "black"];
 
 class ArrayContainer extends Component {
   render() {
@@ -28,10 +28,21 @@ class ArrayContainer extends Component {
               key={index}
               style={{
                 width: `${barWidth}px`,
-                backgroundColor: PRIMARY_COLOR,
+                backgroundColor:
+                  PRIMARY_COLOR[this.props.shape === "bar" ? 0 : 1],
                 height: value
               }}
-            ></div>
+            >
+              <div
+                className="dot"
+                id={`array-dot-${index}`}
+                style={{
+                  height: `${barWidth}px`,
+                  width: `${barWidth}px`,
+                  backgroundColor: PRIMARY_COLOR[0]
+                }}
+              ></div>
+            </div>
           ))}
         </div>
       </div>
@@ -41,7 +52,8 @@ class ArrayContainer extends Component {
 
 const mapStateToProps = state => ({
   size: state.array.size,
-  array: state.array.array
+  array: state.array.array,
+  shape: state.shape
 });
 
 export default connect(mapStateToProps)(ArrayContainer);

@@ -67,8 +67,6 @@ export default function radixSort() {
       if (!getState().curState) {
         break;
       }
-
-      console.log(Math.floor(mx / m));
     }
 
     dispatch({ type: SWAP_ARRAY, array: [...array] });

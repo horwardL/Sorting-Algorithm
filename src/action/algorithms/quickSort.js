@@ -1,11 +1,12 @@
 import { SWAP_ARRAY, TOGGLE_STATE } from "../types";
 
-let dispatch, getState;
+let dispatch, getState, shape;
 
 function quickSort() {
   return async (disp, getSt) => {
     dispatch = disp;
     getState = getSt;
+    shape = getState().shape;
     let array = [...getState().array.array];
     let size = getState().array.size;
     await sort(array, 0, size - 1);
@@ -41,34 +42,22 @@ async function partition(array, low, high) {
   while (true) {
     do {
       ++l;
-      if (getState().shape === "bar") {
-        document.getElementById(`array-bar-${l}`).style.backgroundColor = "red";
-        await sleep(getState().speed);
-        document.getElementById(`array-bar-${l}`).style.backgroundColor =
-          "white";
-      } else {
-        document.getElementById(`array-dot-${l}`).style.backgroundColor = "red";
-        await sleep(getState().speed);
-        document.getElementById(`array-dot-${l}`).style.backgroundColor =
-          "white";
-      }
+      document.getElementById(`array-${shape}-${l}`).style.backgroundColor =
+        "red";
+      await sleep(getState().speed);
+      document.getElementById(`array-${shape}-${l}`).style.backgroundColor =
+        "white";
       if (!getState().curState) {
         break;
       }
     } while (array[l] < pivot);
     do {
       --h;
-      if (getState().shape === "bar") {
-        document.getElementById(`array-bar-${h}`).style.backgroundColor = "red";
-        await sleep(getState().speed);
-        document.getElementById(`array-bar-${h}`).style.backgroundColor =
-          "white";
-      } else {
-        document.getElementById(`array-dot-${h}`).style.backgroundColor = "red";
-        await sleep(getState().speed);
-        document.getElementById(`array-dot-${h}`).style.backgroundColor =
-          "white";
-      }
+      document.getElementById(`array-${shape}-${h}`).style.backgroundColor =
+        "red";
+      await sleep(getState().speed);
+      document.getElementById(`array-${shape}-${h}`).style.backgroundColor =
+        "white";
       if (!getState().curState) {
         break;
       }

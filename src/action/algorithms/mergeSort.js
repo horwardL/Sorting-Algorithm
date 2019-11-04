@@ -1,12 +1,13 @@
 import { SWAP_ARRAY, TOGGLE_STATE } from "../types";
 
-let dispatch, getState;
+let dispatch, getState, shape;
 
 function mergeSort() {
   //toDispatch = [];
   return async (disp, getSt) => {
     dispatch = disp;
     getState = getSt;
+    shape = getState().shape;
     const array = [...getState().array.array];
     const size = getState().array.size;
     await mergeSortRecur(array, 0, size - 1);
@@ -45,27 +46,17 @@ async function merge(array, l, m, r) {
   for (let i = 0; i < n2; ++i) {
     L[i] = array[l + i];
     R[i] = array[m + 1 + i];
-    if (getState().shape === "bar") {
-      document.getElementById(`array-bar-${l + i}`).style.backgroundColor =
-        "red";
-      document.getElementById(`array-bar-${m + 1 + i}`).style.backgroundColor =
-        "red";
-      await sleep(getState().speed);
-      document.getElementById(`array-bar-${l + i}`).style.backgroundColor =
-        "white";
-      document.getElementById(`array-bar-${m + 1 + i}`).style.backgroundColor =
-        "white";
-    } else {
-      document.getElementById(`array-dot-${l + i}`).style.backgroundColor =
-        "red";
-      document.getElementById(`array-dot-${m + 1 + i}`).style.backgroundColor =
-        "red";
-      await sleep(getState().speed);
-      document.getElementById(`array-dot-${l + i}`).style.backgroundColor =
-        "white";
-      document.getElementById(`array-dot-${m + 1 + i}`).style.backgroundColor =
-        "white";
-    }
+    document.getElementById(`array-${shape}-${l + i}`).style.backgroundColor =
+      "red";
+    document.getElementById(
+      `array-${shape}-${m + 1 + i}`
+    ).style.backgroundColor = "red";
+    await sleep(getState().speed);
+    document.getElementById(`array-${shape}-${l + i}`).style.backgroundColor =
+      "white";
+    document.getElementById(
+      `array-${shape}-${m + 1 + i}`
+    ).style.backgroundColor = "white";
     if (!getState().curState) {
       break;
     }
@@ -84,9 +75,11 @@ async function merge(array, l, m, r) {
     } else {
       array[k] = R[j++];
     }
-    document.getElementById(`array-bar-${k}`).style.backgroundColor = "red";
+    document.getElementById(`array-${shape}-${k}`).style.backgroundColor =
+      "red";
     await sleep(getState().speed);
-    document.getElementById(`array-bar-${k}`).style.backgroundColor = "white";
+    document.getElementById(`array-${shape}-${k}`).style.backgroundColor =
+      "white";
     ++k;
     dispatch({
       type: SWAP_ARRAY,

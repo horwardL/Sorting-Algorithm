@@ -4,6 +4,7 @@ export default function insertionSort() {
   return async (dispatch, getState) => {
     const array = [...getState().array.array];
     const size = getState().array.size;
+    const shape = getState().shape;
     let temp = 0,
       j = 0;
 
@@ -12,20 +13,11 @@ export default function insertionSort() {
       temp = array[i];
 
       while (j >= 0 && array[j] > temp) {
-        if (getState().shape === "bar") {
-          document.getElementById(`array-bar-${j}`).style.backgroundColor =
-            "red";
-          await sleep(getState().speed);
-          document.getElementById(`array-bar-${j}`).style.backgroundColor =
-            "white";
-        } else {
-          document.getElementById(`array-bar-${j}`).style.backgroundColor =
-            "red";
-          await sleep(getState().speed);
-          document.getElementById(`array-bar-${j}`).style.backgroundColor =
-            "white";
-          array[j + 1] = array[j];
-        }
+        document.getElementById(`array-${shape}-${j}`).style.backgroundColor =
+          "red";
+        await sleep(getState().speed);
+        document.getElementById(`array-${shape}-${j}`).style.backgroundColor =
+          "white";
         --j;
         dispatch({
           type: SWAP_ARRAY,

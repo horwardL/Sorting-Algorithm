@@ -4,6 +4,7 @@ function binaryInsertionSort() {
   return async (dispatch, getState) => {
     const array = getState().array.array;
     const size = getState().array.size;
+    const shape = getState().shape;
     let temp = 0,
       left = 0,
       right = 0,
@@ -15,19 +16,11 @@ function binaryInsertionSort() {
 
       while (left < right) {
         mid = Math.floor((left + right) / 2);
-        if (getState().shape === "bar") {
-          document.getElementById(`array-bar-${mid}`).style.backgroundColor =
-            "red";
-          await sleep(getState().speed);
-          document.getElementById(`array-bar-${mid}`).style.backgroundColor =
-            "white";
-        } else {
-          document.getElementById(`array-dot-${mid}`).style.backgroundColor =
-            "red";
-          await sleep(getState().speed);
-          document.getElementById(`array-dot-${mid}`).style.backgroundColor =
-            "white";
-        }
+        document.getElementById(`array-${shape}-${mid}`).style.backgroundColor =
+          "red";
+        await sleep(getState().speed);
+        document.getElementById(`array-${shape}-${mid}`).style.backgroundColor =
+          "white";
         if (array[i] <= array[mid]) {
           right = mid;
         } else {
@@ -42,19 +35,13 @@ function binaryInsertionSort() {
         temp = array[left];
         array[left] = array[i];
         array[i] = temp;
-        if (getState().shape === "bar") {
-          document.getElementById(`array-bar-${left}`).style.backgroundColor =
-            "green";
-          await sleep(getState().speed);
-          document.getElementById(`array-bar-${left}`).style.backgroundColor =
-            "white";
-        } else {
-          document.getElementById(`array-dot-${left}`).style.backgroundColor =
-            "green";
-          await sleep(getState().speed);
-          document.getElementById(`array-dot-${left}`).style.backgroundColor =
-            "white";
-        }
+        document.getElementById(
+          `array-${shape}-${left}`
+        ).style.backgroundColor = "green";
+        await sleep(getState().speed);
+        document.getElementById(
+          `array-${shape}-${left}`
+        ).style.backgroundColor = "white";
         if (!getState().curState) {
           break;
         }

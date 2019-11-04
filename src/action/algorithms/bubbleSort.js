@@ -4,6 +4,7 @@ export default function bubbleSort() {
   return async (dispatch, getState) => {
     const array = [...getState().array.array];
     const size = getState().array.size;
+    const shape = getState().shape;
     let temp = 0;
 
     for (let i = 0; i < size - 1; ++i) {
@@ -13,27 +14,18 @@ export default function bubbleSort() {
           array[j] = array[j + 1];
           array[j + 1] = temp;
         }
-        if (getState().shape === "bar") {
-          document.getElementById(`array-bar-${j}`).style.backgroundColor =
-            "red";
-          document.getElementById(`array-bar-${j + 1}`).style.backgroundColor =
-            "red";
-          await sleep(getState().speed);
-          document.getElementById(`array-bar-${j}`).style.backgroundColor =
-            "white";
-          document.getElementById(`array-bar-${j + 1}`).style.backgroundColor =
-            "white";
-        } else {
-          document.getElementById(`array-dot-${j}`).style.backgroundColor =
-            "red";
-          document.getElementById(`array-dot-${j + 1}`).style.backgroundColor =
-            "red";
-          await sleep(getState().speed);
-          document.getElementById(`array-dot-${j}`).style.backgroundColor =
-            "white";
-          document.getElementById(`array-dot-${j + 1}`).style.backgroundColor =
-            "white";
-        }
+        document.getElementById(`array-${shape}-${j}`).style.backgroundColor =
+          "red";
+        document.getElementById(
+          `array-${shape}-${j + 1}`
+        ).style.backgroundColor = "red";
+        await sleep(getState().speed);
+        document.getElementById(`array-${shape}-${j}`).style.backgroundColor =
+          "white";
+        document.getElementById(
+          `array-${shape}-${j + 1}`
+        ).style.backgroundColor = "white";
+
         dispatch({
           type: SWAP_ARRAY,
           array: [...array]

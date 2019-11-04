@@ -4,6 +4,7 @@ export default function radixSort() {
   return async (dispatch, getState) => {
     const array = [...getState().array.array];
     const size = getState().array.size;
+    const shape = getState().shape;
     let count = [];
     let mx = array[0];
     let c = 0;
@@ -19,19 +20,11 @@ export default function radixSort() {
 
       for (let i = 0; i < size; i++) {
         count[Math.floor(array[i] / m) % 10].push(array[i]);
-        if (getState().shape === "bar") {
-          document.getElementById(`array-bar-${i}`).style.backgroundColor =
-            "red";
-          await sleep(getState().speed);
-          document.getElementById(`array-bar-${i}`).style.backgroundColor =
-            "white";
-        } else {
-          document.getElementById(`array-dot-${i}`).style.backgroundColor =
-            "red";
-          await sleep(getState().speed);
-          document.getElementById(`array-dot-${i}`).style.backgroundColor =
-            "white";
-        }
+        document.getElementById(`array-${shape}-${i}`).style.backgroundColor =
+          "red";
+        await sleep(getState().speed);
+        document.getElementById(`array-${shape}-${i}`).style.backgroundColor =
+          "white";
         if (!getState().curState) {
           break;
         }
@@ -40,19 +33,11 @@ export default function radixSort() {
       c = 0;
       for (let i = 0; i < 10; ++i) {
         for (let j = 0; j < count[i].length; ++j) {
-          if (getState().shape === "bar") {
-            document.getElementById(`array-bar-${c}`).style.backgroundColor =
-              "red";
-            await sleep(getState().speed);
-            document.getElementById(`array-bar-${c}`).style.backgroundColor =
-              "white";
-          } else {
-            document.getElementById(`array-dot-${c}`).style.backgroundColor =
-              "red";
-            await sleep(getState().speed);
-            document.getElementById(`array-dot-${c}`).style.backgroundColor =
-              "white";
-          }
+          document.getElementById(`array-${shape}-${c}`).style.backgroundColor =
+            "red";
+          await sleep(getState().speed);
+          document.getElementById(`array-${shape}-${c}`).style.backgroundColor =
+            "white";
           array[c] = count[i][j];
           ++c;
           dispatch({ type: SWAP_ARRAY, array: [...array] });

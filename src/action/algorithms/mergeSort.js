@@ -46,17 +46,19 @@ async function merge(array, l, m, r) {
   for (let i = 0; i < n2; ++i) {
     L[i] = array[l + i];
     R[i] = array[m + 1 + i];
-    document.getElementById(`array-${shape}-${l + i}`).style.backgroundColor =
-      "red";
-    document.getElementById(
-      `array-${shape}-${m + 1 + i}`
-    ).style.backgroundColor = "red";
-    await sleep(getState().speed);
-    document.getElementById(`array-${shape}-${l + i}`).style.backgroundColor =
-      "white";
-    document.getElementById(
-      `array-${shape}-${m + 1 + i}`
-    ).style.backgroundColor = "white";
+    if (getState().mode) {
+      document.getElementById(`array-${shape}-${l + i}`).style.backgroundColor =
+        "red";
+      document.getElementById(
+        `array-${shape}-${m + 1 + i}`
+      ).style.backgroundColor = "red";
+      await sleep(getState().speed);
+      document.getElementById(`array-${shape}-${l + i}`).style.backgroundColor =
+        "white";
+      document.getElementById(
+        `array-${shape}-${m + 1 + i}`
+      ).style.backgroundColor = "white";
+    }
     if (!getState().curState) {
       break;
     }
@@ -75,16 +77,21 @@ async function merge(array, l, m, r) {
     } else {
       array[k] = R[j++];
     }
-    document.getElementById(`array-${shape}-${k}`).style.backgroundColor =
-      "red";
-    await sleep(getState().speed);
-    document.getElementById(`array-${shape}-${k}`).style.backgroundColor =
-      "white";
+    if (getState().mode) {
+      document.getElementById(`array-${shape}-${k}`).style.backgroundColor =
+        "red";
+      await sleep(getState().speed);
+      document.getElementById(`array-${shape}-${k}`).style.backgroundColor =
+        "white";
+    }
     ++k;
     dispatch({
       type: SWAP_ARRAY,
       array: [...array]
     });
+    if (!getState().mode) {
+      await sleep(getState().speed);
+    }
     if (!getState().curState) {
       break;
     }

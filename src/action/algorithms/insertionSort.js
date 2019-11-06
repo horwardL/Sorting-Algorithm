@@ -12,11 +12,13 @@ export default function insertionSort() {
       j = i;
 
       while (j > 0 && array[j] < array[j - 1]) {
-        document.getElementById(`array-${shape}-${j}`).style.backgroundColor =
-          "red";
-        await sleep(getState().speed);
-        document.getElementById(`array-${shape}-${j}`).style.backgroundColor =
-          "white";
+        if (getState().mode) {
+          document.getElementById(`array-${shape}-${j}`).style.backgroundColor =
+            "red";
+          await sleep(getState().speed);
+          document.getElementById(`array-${shape}-${j}`).style.backgroundColor =
+            "white";
+        }
         temp = array[j];
         array[j] = array[j - 1];
         array[j - 1] = temp;
@@ -25,6 +27,9 @@ export default function insertionSort() {
           type: SWAP_ARRAY,
           array: [...array]
         });
+        if (getState().mode) {
+          await sleep(getState().speed);
+        }
         if (!getState().curState) {
           break;
         }
@@ -33,6 +38,9 @@ export default function insertionSort() {
         type: SWAP_ARRAY,
         array: [...array]
       });
+      if (!getState().mode) {
+        await sleep(getState().speed);
+      }
       if (!getState().curState) {
         break;
       }

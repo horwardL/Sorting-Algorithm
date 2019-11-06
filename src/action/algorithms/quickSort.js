@@ -42,22 +42,26 @@ async function partition(array, low, high) {
   while (true) {
     do {
       ++l;
-      document.getElementById(`array-${shape}-${l}`).style.backgroundColor =
-        "red";
-      await sleep(getState().speed);
-      document.getElementById(`array-${shape}-${l}`).style.backgroundColor =
-        "white";
+      if (getState().mode) {
+        document.getElementById(`array-${shape}-${l}`).style.backgroundColor =
+          "red";
+        await sleep(getState().speed);
+        document.getElementById(`array-${shape}-${l}`).style.backgroundColor =
+          "white";
+      }
       if (!getState().curState) {
         break;
       }
     } while (array[l] < pivot);
     do {
       --h;
-      document.getElementById(`array-${shape}-${h}`).style.backgroundColor =
-        "red";
-      await sleep(getState().speed);
-      document.getElementById(`array-${shape}-${h}`).style.backgroundColor =
-        "white";
+      if (getState().mode) {
+        document.getElementById(`array-${shape}-${h}`).style.backgroundColor =
+          "red";
+        await sleep(getState().speed);
+        document.getElementById(`array-${shape}-${h}`).style.backgroundColor =
+          "white";
+      }
       if (!getState().curState) {
         break;
       }
@@ -72,6 +76,9 @@ async function partition(array, low, high) {
       type: SWAP_ARRAY,
       array: [...array]
     });
+    if (!getState().mode) {
+      await sleep(getState().speed);
+    }
     if (!getState().curState) {
       break;
     }

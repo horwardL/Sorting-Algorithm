@@ -8,34 +8,44 @@ function heapSort() {
     let left, right, temp, j, newJ;
     for (let i = Math.floor(size / 2 - 1); i >= 0; --i) {
       j = newJ = i;
-      document.getElementById(`array-${shape}-${i}`).style.backgroundColor =
-        "green";
+      if (getState().mode) {
+        document.getElementById(`array-${shape}-${i}`).style.backgroundColor =
+          "green";
+      }
       while (j < size) {
         newJ = j;
         left = j * 2 + 1;
         right = j * 2 + 2;
         if (left < size && array[left] > array[newJ]) {
           newJ = left;
-          document.getElementById(
-            `array-${shape}-${left}`
-          ).style.backgroundColor = "red";
+          if (getState().mode) {
+            document.getElementById(
+              `array-${shape}-${left}`
+            ).style.backgroundColor = "red";
+          }
         }
 
         if (right < size && array[right] > array[newJ]) {
-          document.getElementById(
-            `array-${shape}-${left}`
-          ).style.backgroundColor = "white";
+          if (getState().mode) {
+            document.getElementById(
+              `array-${shape}-${left}`
+            ).style.backgroundColor = "white";
+          }
           newJ = right;
-          document.getElementById(
-            `array-${shape}-${newJ}`
-          ).style.backgroundColor = "red";
+          if (getState().mode) {
+            document.getElementById(
+              `array-${shape}-${newJ}`
+            ).style.backgroundColor = "red";
+          }
         }
         if (newJ !== j) {
-          await sleep(getState().speed);
+          if (getState().mode) {
+            await sleep(getState().speed);
 
-          document.getElementById(
-            `array-${shape}-${newJ}`
-          ).style.backgroundColor = "white";
+            document.getElementById(
+              `array-${shape}-${newJ}`
+            ).style.backgroundColor = "white";
+          }
           temp = array[j];
           array[j] = array[newJ];
           array[newJ] = temp;
@@ -44,6 +54,9 @@ function heapSort() {
             type: SWAP_ARRAY,
             array: [...array]
           });
+          if (!getState().mode) {
+            await sleep(getState().speed);
+          }
         } else {
           break;
         }
@@ -66,16 +79,23 @@ function heapSort() {
         type: SWAP_ARRAY,
         array: [...array]
       });
+      if (!getState().mode) {
+        await sleep(getState().speed);
+      }
       j = newJ = 0;
-      document.getElementById(`array-${shape}-${i}`).style.backgroundColor =
-        "green";
+      if (getState().mode) {
+        document.getElementById(`array-${shape}-${i}`).style.backgroundColor =
+          "green";
+      }
       while (j < i) {
         newJ = j;
         left = j * 2 + 1;
         right = j * 2 + 2;
-        document.getElementById(
-          `array-${shape}-${newJ}`
-        ).style.backgroundColor = "red";
+        if (getState().mode) {
+          document.getElementById(
+            `array-${shape}-${newJ}`
+          ).style.backgroundColor = "red";
+        }
         if (left < i && array[left] > array[newJ]) {
           newJ = left;
         }
@@ -83,9 +103,11 @@ function heapSort() {
         if (right < i && array[right] > array[newJ]) {
           newJ = right;
         }
-        await sleep(getState().speed);
-        document.getElementById(`array-${shape}-${j}`).style.backgroundColor =
-          "white";
+        if (getState().mode) {
+          await sleep(getState().speed);
+          document.getElementById(`array-${shape}-${j}`).style.backgroundColor =
+            "white";
+        }
         if (newJ !== j) {
           temp = array[j];
           array[j] = array[newJ];
@@ -95,6 +117,9 @@ function heapSort() {
             type: SWAP_ARRAY,
             array: [...array]
           });
+          if (!getState().mode) {
+            await sleep(getState().speed);
+          }
         } else {
           break;
         }

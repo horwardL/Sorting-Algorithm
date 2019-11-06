@@ -16,11 +16,15 @@ function binaryInsertionSort() {
 
       while (left < right) {
         mid = Math.floor((left + right) / 2);
-        document.getElementById(`array-${shape}-${mid}`).style.backgroundColor =
-          "red";
-        await sleep(getState().speed);
-        document.getElementById(`array-${shape}-${mid}`).style.backgroundColor =
-          "white";
+        if (getState().mode) {
+          document.getElementById(
+            `array-${shape}-${mid}`
+          ).style.backgroundColor = "red";
+          await sleep(getState().speed);
+          document.getElementById(
+            `array-${shape}-${mid}`
+          ).style.backgroundColor = "white";
+        }
         if (array[i] <= array[mid]) {
           right = mid;
         } else {
@@ -35,13 +39,15 @@ function binaryInsertionSort() {
         temp = array[left];
         array[left] = array[i];
         array[i] = temp;
-        document.getElementById(
-          `array-${shape}-${left}`
-        ).style.backgroundColor = "green";
-        await sleep(getState().speed);
-        document.getElementById(
-          `array-${shape}-${left}`
-        ).style.backgroundColor = "white";
+        if (getState().mode) {
+          document.getElementById(
+            `array-${shape}-${left}`
+          ).style.backgroundColor = "green";
+          await sleep(getState().speed);
+          document.getElementById(
+            `array-${shape}-${left}`
+          ).style.backgroundColor = "white";
+        }
         if (!getState().curState) {
           break;
         }
@@ -50,6 +56,9 @@ function binaryInsertionSort() {
         type: SWAP_ARRAY,
         array: [...array]
       });
+      if (!getState().mode) {
+        await sleep(getState().speed);
+      }
       if (!getState().curState) {
         break;
       }

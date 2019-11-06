@@ -9,22 +9,30 @@ function selectionSort() {
       temp = 0;
     for (let i = 0; i < size; ++i) {
       min = i;
-      document.getElementById(`array-${shape}-${min}`).style.backgroundColor =
-        "green";
+      if (getState().mode) {
+        document.getElementById(`array-${shape}-${min}`).style.backgroundColor =
+          "green";
+      }
       for (let j = i + 1; j < size; ++j) {
-        document.getElementById(`array-${shape}-${j}`).style.backgroundColor =
-          "red";
-        await sleep(getState().speed);
-        document.getElementById(`array-${shape}-${j}`).style.backgroundColor =
-          "white";
+        if (getState().mode) {
+          document.getElementById(`array-${shape}-${j}`).style.backgroundColor =
+            "red";
+          await sleep(getState().speed);
+          document.getElementById(`array-${shape}-${j}`).style.backgroundColor =
+            "white";
+        }
         if (array[j] < array[min]) {
-          document.getElementById(
-            `array-${shape}-${min}`
-          ).style.backgroundColor = "white";
+          if (getState().mode) {
+            document.getElementById(
+              `array-${shape}-${min}`
+            ).style.backgroundColor = "white";
+          }
           min = j;
-          document.getElementById(
-            `array-${shape}-${min}`
-          ).style.backgroundColor = "green";
+          if (getState().mode) {
+            document.getElementById(
+              `array-${shape}-${min}`
+            ).style.backgroundColor = "green";
+          }
         }
         if (!getState().curState) {
           break;
@@ -39,6 +47,9 @@ function selectionSort() {
         type: SWAP_ARRAY,
         array: [...array]
       });
+      if (!getState().mode) {
+        await sleep(getState().speed);
+      }
       if (!getState().curState) {
         break;
       }

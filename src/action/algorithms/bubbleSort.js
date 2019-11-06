@@ -14,22 +14,26 @@ export default function bubbleSort() {
           array[j] = array[j + 1];
           array[j + 1] = temp;
         }
-        document.getElementById(`array-${shape}-${j}`).style.backgroundColor =
-          "red";
-        document.getElementById(
-          `array-${shape}-${j + 1}`
-        ).style.backgroundColor = "red";
-        await sleep(getState().speed);
-        document.getElementById(`array-${shape}-${j}`).style.backgroundColor =
-          "white";
-        document.getElementById(
-          `array-${shape}-${j + 1}`
-        ).style.backgroundColor = "white";
-
+        if (getState().mode) {
+          document.getElementById(`array-${shape}-${j}`).style.backgroundColor =
+            "red";
+          document.getElementById(
+            `array-${shape}-${j + 1}`
+          ).style.backgroundColor = "red";
+          await sleep(getState().speed);
+          document.getElementById(`array-${shape}-${j}`).style.backgroundColor =
+            "white";
+          document.getElementById(
+            `array-${shape}-${j + 1}`
+          ).style.backgroundColor = "white";
+        }
         dispatch({
           type: SWAP_ARRAY,
           array: [...array]
         });
+        if (!getState().mode) {
+          await sleep(getState().speed * 0.5);
+        }
         if (!getState().curState) {
           break;
         }

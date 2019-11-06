@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "4e091bb8d55e525d6296ab3d6c728d99",
+    "revision": "8880e703104f0514822b37efc57babdc",
     "url": "/Sorting-Algorithm/index.html"
   },
   {
-    "revision": "d852cc2019c9b6317fef",
+    "revision": "0fd7513f7cccf52084a4",
     "url": "/Sorting-Algorithm/static/css/main.4e56aa1e.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Sorting-Algorithm/static/js/2.55fd9930.chunk.js"
   },
   {
-    "revision": "d852cc2019c9b6317fef",
-    "url": "/Sorting-Algorithm/static/js/main.d1d645b1.chunk.js"
+    "revision": "0fd7513f7cccf52084a4",
+    "url": "/Sorting-Algorithm/static/js/main.35fb829f.chunk.js"
   },
   {
     "revision": "3fb1cd2d75d234703f79",

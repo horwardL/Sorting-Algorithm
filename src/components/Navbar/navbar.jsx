@@ -4,7 +4,9 @@ import {
   Nav,
   NavDropdown,
   OverlayTrigger,
-  Tooltip
+  Tooltip,
+  ButtonGroup,
+  Button
 } from "react-bootstrap";
 import { connect } from "react-redux";
 
@@ -13,13 +15,14 @@ import selectionSort from "../../action/algorithms/selectionSort";
 import insertionSort from "../../action/algorithms/insertionSort";
 import bubbleSort from "../../action/algorithms/bubbleSort";
 import binaryInsertionSort from "../../action/algorithms/binaryInsertionSort";
+import cocktailSort from "../../action/algorithms/cocktailSort";
 import mergeSort from "../../action/algorithms/mergeSort";
 import quickSort from "../../action/algorithms/quickSort";
 import heapSort from "../../action/algorithms/heapSort";
 import radixSort from "../../action/algorithms/radixSort";
 
 import "./navbar.min.css";
-import { TOGGLE_STATE, SHAPE_CHANGE } from "../../action/types";
+import { TOGGLE_STATE, SHAPE_CHANGE, MODE_CHANGE } from "../../action/types";
 
 class NavBar extends Component {
   componentDidMount() {
@@ -48,6 +51,9 @@ class NavBar extends Component {
         return;
       case "BINARY_INSERTION_SORT":
         this.props.binary_insertion_sort();
+        return;
+      case "COCKTAIL_SORT":
+        this.props.cocktail_sort();
         return;
       case "MERGE_SORT":
         this.props.merge_sort();
@@ -138,6 +144,11 @@ class NavBar extends Component {
               >
                 Binary Insertion Sort
               </NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => algorithmChanged("COCKTAIL_SORT")}
+              >
+                Cocktail Sort
+              </NavDropdown.Item>
               <NavDropdown.Item onClick={() => algorithmChanged("MERGE_SORT")}>
                 Merge Sort
               </NavDropdown.Item>
@@ -151,38 +162,56 @@ class NavBar extends Component {
                 Radix Sort
               </NavDropdown.Item>
             </NavDropdown>
-            <NavDropdown
-              title="Shapes"
-              id="collasible-nav-dropdown"
-              disabled={this.props.curState}
-            >
-              <NavDropdown.Item
+            <ButtonGroup aria-label="shape">
+              <Button
+                variant="dark"
                 onClick={() => this.props.shapeChanged("bar")}
                 disabled={this.props.curState}
               >
                 Bar
-              </NavDropdown.Item>
-              <NavDropdown.Item
+              </Button>
+              <Button
+                variant="dark"
                 onClick={() => this.props.shapeChanged("dot")}
                 disabled={this.props.curState}
               >
                 Dot
-              </NavDropdown.Item>
-            </NavDropdown>
-            <Nav.Link
-              href=""
-              onClick={() => this.startSelected()}
-              disabled={this.props.curState}
-            >
-              Start
-            </Nav.Link>
-            <Nav.Link
-              href=""
-              onClick={() => this.props.toggleState()}
-              disabled={!this.props.curState}
-            >
-              Stop
-            </Nav.Link>
+              </Button>
+            </ButtonGroup>
+            <ButtonGroup aria-label="mode">
+              <Button
+                variant="dark"
+                onClick={() => {
+                  this.props.modeChanged(true);
+                }}
+              >
+                Normal Mode
+              </Button>
+              <Button
+                variant="dark"
+                onClick={() => {
+                  this.props.modeChanged(false);
+                }}
+              >
+                Kreygas Mode
+              </Button>
+            </ButtonGroup>
+            <ButtonGroup aria-label="start-stop">
+              <Button
+                variant="dark"
+                onClick={() => this.startSelected()}
+                disabled={this.props.curState}
+              >
+                Start
+              </Button>
+              <Button
+                variant="dark"
+                onClick={() => this.props.toggleState()}
+                disabled={!this.props.curState}
+              >
+                Stop
+              </Button>
+            </ButtonGroup>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
@@ -212,6 +241,9 @@ const mapDispathToProps = dispatch => {
     shapeChanged: shape => {
       dispatch({ type: SHAPE_CHANGE, shape: shape });
     },
+    modeChanged: mode => {
+      dispatch({ type: MODE_CHANGE, mode: mode });
+    },
     toggleState: () => {
       dispatch({ type: TOGGLE_STATE });
     },
@@ -226,6 +258,9 @@ const mapDispathToProps = dispatch => {
     },
     binary_insertion_sort: () => {
       dispatch(binaryInsertionSort());
+    },
+    cocktail_sort: () => {
+      dispatch(cocktailSort());
     },
     merge_sort: () => {
       dispatch(mergeSort());
